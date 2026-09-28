@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Asociación de Estudiantes de Física y Electrónica (AEFE) - UPRH</title>
+  <style>
+    :root {
+      --primary: #800000; /* Granate UPRH / AEFE */
+      --secondary: #d4af37; /* Dorado */
+      --dark: #1f2937;
+      --light: #f9fafb;
+      --white: #ffffff;
+      --gray: #6b7280;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--light);
+      color: var(--dark);
+      line-height: 1.6;
+    }
+
+    /* Header & Navigation */
+    header {
+      background-color: var(--primary);
+      color: var(--white);
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    }
+
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-svg {
+      width: 45px;
+      height: 45px;
+    }
+
+    .brand-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+    }
+
+    .brand-subtitle {
+      font-size: 0.8rem;
+      color: var(--secondary);
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: var(--secondary);
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(rgba(128, 0, 0, 0.85), rgba(31, 41, 55, 0.85)), 
+                  radial-gradient(circle, #333 10%, transparent 10%);
+      background-size: cover, 20px 20px;
+      color: var(--white);
+      text-align: center;
+      padding: 4rem 1rem;
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin: 0 auto 1.5rem auto;
+      color: #e5e7eb;
+    }
+
+    .btn {
+      display: inline-block;
+      background-color: var(--secondary);
+      color: var(--dark);
+      padding: 0.75rem 1.5rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    .btn:hover {
+      background-color: #f3c63f;
+      transform: translateY(-2px);
+    }
+
+    /* Layout Sections */
+    section {
+      max-width: 1200px;
+      margin: 3rem auto;
+      padding: 0 1.5rem;
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+      border-bottom: 3px solid var(--secondary);
+      display: inline-block;
+      padding-bottom: 0.3rem;
+    }
+
+    /* Grid for Cards */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--white);
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      border-top: 4px solid var(--primary);
+    }
+
+    .card h3 {
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .card-date {
+      font-size: 0.85rem;
+      color: var(--gray);
+      margin-bottom: 0.75rem;
+    }
+
+    /* Directiva */
+    .directiva-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .directiva-card {
+      background: var(--white);
+      padding: 1.25rem;
+      border-radius: 8px;
+      text-align: center;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+    }
+
+    .role {
+      font-size: 0.9rem;
+      font-weight: bold;
+      color: var(--primary);
+      text-transform: uppercase;
+      margin-bottom: 0.25rem;
+    }
+
+    .name {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .email-input {
+      font-size: 0.85rem;
+      color: var(--gray);
+      word-break: break-all;
+    }
+
+    /* Calendar Container */
+    .calendar-container {
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+      height: 0;
+      overflow: hidden;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .calendar-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    /* Form Section */
+    .form-container {
+      background: var(--white);
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    /* Documents / Benefits */
+    .benefits-list {
+      list-style-type: square;
+      margin-left: 1.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .benefits-list li {
+      margin-bottom: 0.5rem;
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--dark);
+      color: var(--white);
+      text-align: center;
+      padding: 2rem;
+      margin-top: 4rem;
+    }
+
+    footer p {
+      font-size: 0.9rem;
+      color: #9ca3af;
+    }
+
+    /* Responsive Nav */
+    @media (max-width: 768px) {
+      .header-container {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ENCABEZADO Y LOGOS -->
+  <header>
+    <div class="header-container">
+      <div class="logo-container">
+        <!-- Logo AEFE (Escudo) -->
+        <svg class="logo-svg" viewBox="0 0 100 120">
+          <path d="M50 5 L90 20 L90 70 Q50 115 10 70 L10 20 Z" fill="#800000" stroke="#d4af37" stroke-width="3"/>
+          <path d="M50 10 L85 23 L85 68 Q50 108 15 68 L15 23 Z" fill="#800000"/>
+          <line x1="50" y1="10" x2="50" y2="105" stroke="#d4af37" stroke-width="2"/>
+          <line x1="15" y1="50" x2="85" y2="50" stroke="#d4af37" stroke-width="2"/>
+          <circle cx="32" cy="32" r="10" fill="none" stroke="#fff" stroke-width="2"/>
+          <circle cx="32" cy="32" r="3" fill="#fff"/>
+          <text x="68" y="38" fill="#fff" font-size="16" font-family="serif" text-anchor="middle">A</text>
+          <text x="32" y="80" fill="#fff" font-size="16" font-family="serif" text-anchor="middle">Ω</text>
+          <text x="68" y="80" fill="#fff" font-size="16" font-family="serif" text-anchor="middle">π</text>
+        </svg>
+
+        <!-- Logo UPRH (Sello Circular) -->
+        <svg class="logo-svg" viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="45" fill="#ffffff" stroke="#800000" stroke-width="4"/>
+          <circle cx="50" cy="50" r="38" fill="none" stroke="#d4af37" stroke-width="2"/>
+          <text x="50" y="22" font-size="7" fill="#800000" font-weight="bold" text-anchor="middle">UNIVERSIDAD DE PUERTO RICO</text>
+          <text x="50" y="86" font-size="7" fill="#800000" font-weight="bold" text-anchor="middle">HUMACAO • 1962</text>
+          <path d="M35 60 L50 35 L65 60 Z" fill="none" stroke="#800000" stroke-width="2"/>
+          <circle cx="50" cy="48" r="4" fill="#d4af37"/>
+        </svg>
+
+        <div>
+          <div class="brand-title">AEFE - UPRH</div>
+          <div class="brand-subtitle">Asociación de Estudiantes de Física y Electrónica</div>
+        </div>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#nosotros">Nosotros</a></li>
+          <li><a href="#anuncios">Anuncios</a></li>
+          <li><a href="#directiva">Directiva</a></li>
+          <li><a href="#calendario">Calendario</a></li>
+          <li><a href="#membresia">Membresía</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- PORTADA / HERO -->
+  <section class="hero" id="inicio">
+    <h1>Asociación de Estudiantes de Física y Electrónica</h1>
+    <p>Un espacio dedicado a la unión, trabajo en equipo e intercambio de ideas para maximizar el libre pensamiento en la comunidad científica de la UPRH.</p>
+    <a href="#membresia" class="btn">¡Inscríbete Hoy!</a>
+  </section>
+
+  <!-- NOSOTROS Y OBJETIVOS -->
+  <section id="nosotros">
+    <h2 class="section-title">Sobre Nosotros</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Preámbulo y Propósito</h3>
+        <p>La Organización de Estudiantes de Física y Electrónica de la Universidad de Puerto Rico en Humacao está basada en la unión y confraternización de sus miembros[cite: 1]. Fomentamos el trabajo en equipo, la diversidad, inclusión y el desarrollo académico de estudiantes de bachillerato, grado asociado y otras concentraciones[cite: 1].</p>
+      </div>
+      <div class="card">
+        <h3>Objetivos Principales</h3>
+        <ul>
+          <li>Fomentar el intercambio de ideas entre futuros profesionales del área[cite: 1].</li>
+          <li>Ofrecer a la comunidad universitaria un espacio libre para estudiar y proveer recursos académicos[cite: 1].</li>
+          <li>Promover la diversidad e inclusión en el campo de la física y ramas adyacentes[cite: 1].</li>
+          <li>Organizar actividades de desarrollo académico y extracurriculares[cite: 1].</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Beneficios de Miembros Activos</h3>
+        <ul class="benefits-list">
+          <li>Acceso a facilidades de la Asociación (pizarra, libros, computadora, impresora, microondas, etc.)[cite: 1].</li>
+          <li>Tutorías y ayuda académica por parte de compañeros avanzados[cite: 1].</li>
+          <li>Participación en viajes, talleres y actividades extracurriculares[cite: 1].</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN DE ANUNCIOS Y NOTICIAS (MODIFICABLE FÁCILMENTE) -->
+  <section id="anuncios">
+    <h2 class="section-title">Anuncios y Noticias</h2>
+    <p style="margin-bottom: 1rem; color: var(--gray);">Mantente al día con las últimas reuniones, talleres y convocatorias de la AEFE.</p>
+
+    <div class="grid" id="contenedor-anuncios">
+      <!-- NOTICIA 1 -->
+      <div class="card">
+        <h3>Proceso de Inscripción 2026-2027</h3>
+        <div class="card-date">Publicado: Agosto 2026</div>
+        <p>¡Ya está abierta la convocatoria para unirte a la AEFE este año académico! Completa el formulario digital al final de esta página para enviar tu solicitud[cite: 2].</p>
+      </div>
+
+      <!-- NOTICIA 2 -->
+      <div class="card">
+        <h3>Próxima Asamblea General</h3>
+        <div class="card-date">Publicado: Septiembre 2026</div>
+        <p>Te invitamos a la primera asamblea general del semestre para discutir las actividades planificadas y la cuota anual. ¡Contamos con tu presencia![cite: 1, 2]</p>
+      </div>
+
+      <!-- NOTICIA 3 -->
+      <div class="card">
+        <h3>Noches de Astronomía y Talleres</h3>
+        <div class="card-date">Publicado: Septiembre 2026</div>
+        <p>Pronto estaremos anunciando las fechas para las actividades en el Observatorio UPRH y los eventos de preparación. Revisa el calendario interactivo abajo[cite: 1].</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIRECTIVA ACTUAL -->
+  <section id="directiva">
+    <h2 class="section-title">Directiva Actual (2026-2027)</h2>
+    <div class="directiva-grid">
+      <div class="directiva-card">
+        <div class="role">Presidente</div>
+        <div class="name">Alecxavier Bilbao Rosa</div>
+        <div class="email-input">Correo: <a href="mailto:alecxavier.bilbao@upr.edu">alecxavier.bilbao@upr.edu</a></div>
+      </div>
+      <div class="directiva-card">
+        <div class="role">Vicepresidente</div>
+        <div class="name">Ricardo J. Roque Santana</div>
+        <div class="email-input">Correo: <a href="mailto:ricardo.roque@upr.edu">ricardo.roque@upr.edu</a></div>
+      </div>
+      <div class="directiva-card">
+        <div class="role">Secretario</div>
+        <div class="name">Diego G. de León González</div>
+        <div class="email-input">Correo: <a href="mailto:diego.deleon1@upr.edu">diego.deleon1@upr.edu</a></div>
+      </div>
+      <div class="directiva-card">
+        <div class="role">Tesorero</div>
+        <div class="name">Jan L. Rondón González</div>
+        <div class="email-input">Correo: <a href="mailto:jan.rondon@upr.edu">jan.rondon@upr.edu</a></div>
+      </div>
+      <div class="directiva-card">
+        <div class="role">Representante Estudiantil</div>
+        <div class="name">Sofiamarí Rosa Rivera</div>
+        <div class="email-input">Correo: <a href="mailto:sofiamari.rosa@upr.edu">sofiamari.rosa@upr.edu</a></div>
+      </div>
+      <div class="directiva-card">
+        <div class="role">Representante Estudiantil</div>
+        <div class="name">Alaniz S. Flores Ríos</div>
+        <div class="email-input">Correo: <a href="mailto:alaniz.flores@upr.edu">alaniz.flores@upr.edu</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CALENDARIO DE GOOGLE -->
+  <section id="calendario">
+    <h2 class="section-title">Calendario de Eventos</h2>
+    <div class="calendar-container">
+      <iframe src="https://calendar.google.com/calendar/embed?src=c_ada13ee4c92f40f0d1529558814b3160397610f757d268ae07012ae9993f2280%40group.calendar.google.com&ctz=America%2FPuerto_Rico"></iframe>
+    </div>
+  </section>
+
+  <!-- SOLICITUD Y REGISTRO DE MEMBRESÍA -->
+  <section id="membresia">
+    <h2 class="section-title">Solicitud de Ingreso</h2>
+    <div class="form-container">
+      <p style="margin-bottom: 1.5rem;">
+        Puedes enviar tu información directamente desde este formulario para solicitar ingreso. Tu solicitud se enviará a la cuenta de correo oficial de la asociación: 
+        <strong><a href="mailto:aefe.uprh@upr.edu">aefe.uprh@upr.edu</a></strong>[cite: 2].
+      </p>
+
+      <form action="mailto:aefe.uprh@upr.edu" method="post" enctype="text/plain">
+        <div class="grid">
+          <div class="form-group">
+            <label for="nombre">Nombre Completo:</label>
+            <input type="text" id="nombre" name="Nombre" required>
+          </div>
+          <div class="form-group">
+            <label for="estudiante_id">Número de Estudiante:</label>
+            <input type="text" id="estudiante_id" name="Numero_Estudiante" required>
+          </div>
+          <div class="form-group">
+            <label for="departamento">Departamento y Concentración:</label>
+            <input type="text" id="departamento" name="Departamento_Concentracion" placeholder="Ej. Física / Electrónica" required>
+          </div>
+          <div class="form-group">
+            <label for="telefono">Teléfono / Celular:</label>
+            <input type="tel" id="telefono" name="Telefono" required>
+          </div>
+          <div class="form-group">
+            <label for="email_upr">Correo Institucional (@upr.edu):</label>
+            <input type="email" id="email_upr" name="Correo_UPR" required>
+          </div>
+          <div class="form-group">
+            <label for="tipo_membresia">Tipo de Membresía:</label>
+            <select id="tipo_membresia" name="Tipo_Membresia">
+              <option value="Nuevo ($10.00)">Miembro Nuevo - Dept. Física ($10.00)</option>
+              <option value="Activo ($5.00)">Renovación Miembro Activo ($5.00)</option>
+              <option value="Nuevo Otro Dept ($12.00)">Miembro Nuevo - Otro Dept. ($12.00)</option>
+              <option value="Activo Otro Dept ($7.00)">Renovación Otro Dept. ($7.00)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="sugerencias">Actividades que te gustaría sugerir:</label>
+          <textarea id="sugerencias" name="Sugerencias" rows="3"></textarea>
+        </div>
+
+        <button type="submit" class="btn" style="border: none; cursor: pointer; width: 100%;">Enviar Solicitud por Correo Electrónico</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- PIE DE PÁGINA -->
+  <footer>
+    <p>&copy; 2026 Asociación de Estudiantes de Física y Electrónica (AEFE)</p>
+    <p>Universidad de Puerto Rico en Humacao • Correo: aefe.uprh@upr.edu</p>
+  </footer>
+
+</body>
+</html>
